@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Horizonte Aéreo - Drone para Bodas y Eventos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚁%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo:#101c33; --dusk:#1d3357; --horizon:#e0973f; --horizon-deep:#c97a2c;
+    --cloud:#f6f1e8; --ink:#16223b; --ink-soft:#5a6478; --cloud-soft:#c7cee0;
+    --bg:var(--cloud); --text:var(--ink); --text-soft:var(--ink-soft);
+    --surface:#ffffff; --border:rgba(22,34,59,0.12);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:var(--dusk); --text:var(--cloud); --text-soft:var(--cloud-soft);
+      --surface:#25406a; --border:rgba(246,241,232,0.16);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:var(--dusk); --text:var(--cloud); --text-soft:var(--cloud-soft);
+    --surface:#25406a; --border:rgba(246,241,232,0.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+  body{
+    background:var(--bg); color:var(--text); font-family:'Manrope',sans-serif;
+    line-height:1.6; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:500; line-height:1.15; letter-spacing:-.01em}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
+  .section{padding-block:clamp(3rem,7vw,5.5rem)}
+  .eyebrow-free{max-width:38rem}
+  h2{font-size:clamp(1.7rem,3vw + 1rem,2.5rem);margin-bottom:.6rem}
+  .lede{color:var(--text-soft);font-size:1.05rem;max-width:34rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:3px;
+    font-weight:600;font-size:.95rem;text-decoration:none;border:1.5px solid transparent;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:focus-visible, a:focus-visible, button:focus-visible{outline:2px solid var(--horizon);outline-offset:3px}
+  .btn-primary{background:var(--horizon);color:var(--indigo)}
+  .btn-primary:hover{background:var(--horizon-deep)}
+  .btn-outline{border-color:currentColor}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:20;background:var(--cloud);
+    padding-top:env(safe-area-inset-top,0px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding-block:1rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:'Fraunces',serif;font-size:1.15rem;color:var(--indigo)}
+  .brand svg{color:var(--horizon-deep)}
+  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+  .nav-links a{font-size:.95rem;font-weight:500;text-decoration:none;color:var(--indigo)}
+  .nav-cta{display:none}
+  @media(min-width:720px){.nav-cta{display:inline-flex}}
+  @media(max-width:719px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{background:linear-gradient(160deg,var(--indigo) 0%,var(--dusk) 65%,#2a4670 100%);color:var(--cloud);position:relative;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:center;padding-block:clamp(3rem,8vw,6rem)}
+  @media(min-width:860px){.hero .wrap{grid-template-columns:1.1fr .9fr}}
+  .hero h1{font-size:clamp(2.1rem,4vw + 1.2rem,3.4rem);color:var(--cloud);max-width:16ch}
+  .hero p.lede{color:var(--cloud-soft);margin-block:1.1rem 1.8rem;font-size:1.08rem}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem}
+  .hero-ctas .btn-outline{border-color:var(--cloud-soft);color:var(--cloud)}
+  .hero-visual{display:flex;justify-content:center}
+  .hero-visual svg{width:100%;max-width:420px;height:auto}
+  .rise{animation:rise .7s ease-out both}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.rise{animation:none}}
+
+  /* services */
+  .services-grid{display:grid;gap:2.4rem 2rem;margin-top:2.6rem}
+  @media(min-width:680px){.services-grid{grid-template-columns:1fr 1fr}}
+  .service{display:flex;gap:1rem;border-top:1px solid var(--border);padding-top:1.3rem}
+  .service svg{flex:none;color:var(--horizon-deep);margin-top:.15rem}
+  .service h3{font-size:1.15rem;margin-bottom:.35rem;color:var(--text)}
+  .service p{color:var(--text-soft);font-size:.96rem;max-width:32ch}
+
+  /* why us - dark band */
+  .band-dark{background:var(--indigo);color:var(--cloud)}
+  .band-dark .lede{color:var(--cloud-soft)}
+  .features{display:flex;flex-wrap:wrap;margin-top:2.6rem}
+  .feature{flex:1 1 220px;padding:1.4rem 1.6rem 1.4rem 0;border-top:1px solid rgba(246,241,232,.18)}
+  .feature svg{color:var(--horizon);margin-bottom:.8rem}
+  .feature h3{font-size:1.05rem;margin-bottom:.4rem;font-family:'Fraunces',serif;font-weight:500}
+  .feature p{color:var(--cloud-soft);font-size:.92rem}
+
+  /* gallery */
+  .gallery-grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:2.6rem}
+  @media(min-width:640px){.gallery-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:960px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+  .frame{position:relative;aspect-ratio:4/3;border-radius:2px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .frame span{position:absolute;left:.9rem;bottom:.75rem;font-size:.85rem;font-weight:600;color:var(--cloud)}
+  .frame svg{opacity:.9}
+  .f1{background:linear-gradient(135deg,#1d3357,#3a5a8c)}
+  .f2{background:linear-gradient(135deg,#101c33,#c97a2c)}
+  .f3{background:linear-gradient(135deg,#2a4670,#101c33)}
+  .f4{background:linear-gradient(135deg,#c97a2c,#e0973f)}
+  .f5{background:linear-gradient(135deg,#101c33,#4a6491)}
+  .f6{background:linear-gradient(135deg,#3a5a8c,#1d3357)}
+
+  /* packages */
+  .packages-grid{display:grid;gap:1.5rem;margin-top:2.6rem}
+  @media(min-width:820px){.packages-grid{grid-template-columns:repeat(3,1fr)}}
+  .package{border:1px solid var(--border);border-top:3px solid var(--horizon);padding:1.8rem;background:var(--surface);border-radius:2px;display:flex;flex-direction:column}
+  .package h3{font-size:1.3rem;margin-bottom:.25rem}
+  .price{font-family:'Fraunces',serif;font-size:1.9rem;margin-block:.5rem .3rem}
+  .price small{font-family:'Manrope',sans-serif;font-size:.85rem;font-weight:500;color:var(--text-soft)}
+  .package > p{color:var(--text-soft);font-size:.92rem;margin-bottom:1rem}
+  .package ul{list-style:none;margin-bottom:1.5rem;flex:1}
+  .package li{padding-block:.45rem;border-top:1px solid var(--border);font-size:.92rem;display:flex;gap:.6rem}
+  .package li:first-child{border-top:none}
+  .package li svg{flex:none;color:var(--horizon-deep);margin-top:.2rem}
+  .package .btn{justify-content:center;width:100%}
+
+  /* footer */
+  footer{background:var(--indigo);color:var(--cloud-soft)}
+  .footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;padding-block:3rem 2rem}
+  .footer-brand{color:var(--cloud);max-width:26rem}
+  .footer-brand .brand{color:var(--cloud);margin-bottom:.7rem}
+  .footer-brand svg{color:var(--horizon)}
+  .footer-contact{display:flex;flex-direction:column;gap:.6rem;font-size:.95rem}
+  .footer-contact a{text-decoration:none}
+  .footer-bottom{border-top:1px solid rgba(246,241,232,.15);padding-block:1.3rem;font-size:.85rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="10" cy="10" r="5"/><circle cx="38" cy="10" r="5"/><circle cx="10" cy="38" r="5"/><circle cx="38" cy="38" r="5"/><line x1="14" y1="14" x2="20" y2="20"/><line x1="34" y1="14" x2="28" y2="20"/><line x1="14" y1="34" x2="20" y2="28"/><line x1="34" y1="34" x2="28" y2="28"/><rect x="18" y="18" width="12" height="12" rx="2"/></svg>
+      Horizonte Aéreo
+    </div>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#paquetes">Paquetes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="btn btn-primary nav-cta" href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20cotizar%20un%20evento%20con%20Horizonte%20A%C3%A9reo.">WhatsApp</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1 class="rise d1">El instante en que todos voltean hacia el cielo</h1>
+      <p class="lede rise d2">Filmamos bodas y eventos desde el aire, con tomas cinematográficas en 4K que cuentan la historia completa de tu celebración, no solo un ángulo.</p>
+      <div class="hero-ctas rise d3">
+        <a class="btn btn-primary" href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20cotizar%20un%20evento%20con%20Horizonte%20A%C3%A9reo.">Cotiza por WhatsApp</a>
+        <a class="btn btn-outline" href="#paquetes">Ver paquetes</a>
+      </div>
+    </div>
+    <div class="hero-visual rise d4">
+      <svg viewBox="0 0 460 300" fill="none">
+        <path d="M20 250 C 150 250, 170 60, 430 50" stroke="var(--horizon)" stroke-width="2" stroke-dasharray="7 9" stroke-linecap="round"/>
+        <circle cx="20" cy="250" r="5" fill="var(--horizon)"/>
+        <g transform="translate(405,32)"><circle cx="10" cy="4" r="4" fill="var(--cloud)" opacity=".8"/><circle cx="35" cy="4" r="4" fill="var(--cloud)" opacity=".8"/><circle cx="10" cy="26" r="4" fill="var(--cloud)" opacity=".8"/><circle cx="35" cy="26" r="4" fill="var(--cloud)" opacity=".8"/><rect x="16" y="10" width="14" height="14" rx="2" fill="var(--horizon)"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios">
+  <div class="wrap">
+    <div class="eyebrow-free">
+      <h2>Cada evento tiene su propio ángulo</h2>
+      <p class="lede">Adaptamos el vuelo, el equipo y la edición al tipo de celebración, sin un solo formato genérico para todos.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v6M9 6l3-3 3 3"/><path d="M4 14c2-2 5-3 8-3s6 1 8 3"/><path d="M4 19c2-2 5-3 8-3s6 1 8 3"/></svg>
+        <div><h3>Bodas</h3><p>La ceremonia, la recepción y el brindis, capturados desde arriba sin interrumpir un solo momento.</p></div>
+      </div>
+      <div class="service">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="12" rx="1.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        <div><h3>Eventos corporativos</h3><p>Conferencias, lanzamientos y activaciones, con tomas que muestran la escala real del evento.</p></div>
+      </div>
+      <div class="service">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg>
+        <div><h3>XV años</h3><p>El vals, la coreografía y la fiesta, filmados con la misma calidez que un video de cine.</p></div>
+      </div>
+      <div class="service">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18V9M9 18V5M14 18v-7M19 18V7"/></svg>
+        <div><h3>Conciertos y festivales</h3><p>Tomas panorámicas del escenario y del público, sincronizadas con el momento.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section band-dark">
+  <div class="wrap">
+    <div class="eyebrow-free">
+      <h2>Por qué contratar el vuelo con nosotros</h2>
+      <p class="lede">Cuatro cosas que cuidamos en cada evento, sin excepción.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l3 6 6 1-4.5 4.5L17.5 20 12 17l-5.5 3 1-6.5L3 9l6-1z"/></svg>
+        <h3>Pilotos certificados</h3><p>Volamos bajo las regulaciones de la AFAC, con licencia vigente y respeto por el espacio aéreo del lugar.</p>
+      </div>
+      <div class="feature">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.3"/></svg>
+        <h3>Video en 4K y 8K</h3><p>Equipo profesional listo para pantallas grandes y para redes sociales.</p>
+      </div>
+      <div class="feature">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Entrega en 48 horas</h3><p>Recibes un primer corte editado dos días después de tu evento.</p>
+      </div>
+      <div class="feature">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>
+        <h3>Seguro incluido</h3><p>Cada vuelo cuenta con cobertura de responsabilidad civil, incluida en todos los paquetes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-free">
+      <h2>Así se ve la historia desde arriba</h2>
+      <p class="lede">Una muestra del tipo de tomas que integramos a cada entrega.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="frame f1"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Ceremonia al atardecer</span></div>
+      <div class="frame f2"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Vista aérea del recinto</span></div>
+      <div class="frame f3"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Entrada de invitados</span></div>
+      <div class="frame f4"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Pista y luces nocturnas</span></div>
+      <div class="frame f5"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Escenario y público</span></div>
+      <div class="frame f6"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--cloud)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z" fill="var(--cloud)" stroke="none"/></svg><span>Toma final de despedida</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="paquetes">
+  <div class="wrap">
+    <div class="eyebrow-free">
+      <h2>Paquetes</h2>
+      <p class="lede">Precios de referencia en pesos mexicanos. Ajustamos el paquete según la duración y el lugar de tu evento.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="package">
+        <h3>Esencial</h3>
+        <p class="price">$4,500 <small>MXN</small></p>
+        <p>Para eventos íntimos que buscan un buen resumen aéreo.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Hasta 2 horas de vuelo</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Video editado de 2-3 min</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Entrega en 48 horas</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>10 fotos aéreas en alta resolución</li>
+        </ul>
+        <a class="btn btn-primary" href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20Esencial.">Cotizar por WhatsApp</a>
+      </div>
+      <div class="package">
+        <h3>Cinemático</h3>
+        <p class="price">$7,800 <small>MXN</small></p>
+        <p>El equilibrio entre cobertura completa y edición cuidada.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Hasta 4 horas de vuelo</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Video de 4-5 min + versión corta para redes</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>25 fotos aéreas en alta resolución</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Segundo piloto de respaldo</li>
+        </ul>
+        <a class="btn btn-primary" href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20Cinem%C3%A1tico.">Cotizar por WhatsApp</a>
+      </div>
+      <div class="package">
+        <h3>Producción completa</h3>
+        <p class="price">$13,500 <small>MXN</small></p>
+        <p>Para bodas y eventos que quieren una pieza cinematográfica completa.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Cobertura del día completo</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Video de 8-10 min + highlights para redes</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Galería completa de fotos aéreas</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>Dron adicional para tomas simultáneas</li>
+        </ul>
+        <a class="btn btn-primary" href="https://wa.me/5215512345678?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20Producci%C3%B3n%20completa.">Cotizar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="10" cy="10" r="5"/><circle cx="38" cy="10" r="5"/><circle cx="10" cy="38" r="5"/><circle cx="38" cy="38" r="5"/><line x1="14" y1="14" x2="20" y2="20"/><line x1="34" y1="14" x2="28" y2="20"/><line x1="14" y1="34" x2="20" y2="28"/><line x1="34" y1="34" x2="28" y2="28"/><rect x="18" y="18" width="12" height="12" rx="2"/></svg>
+        Horizonte Aéreo
+      </div>
+      <p>¿Listo para ver tu evento desde otro ángulo? Escríbenos y armamos el paquete a tu medida.</p>
+    </div>
+    <div class="footer-contact">
+      <a href="https://wa.me/5215512345678">WhatsApp: +52 55 1234 5678</a>
+      <a href="mailto:hola@horizonteaereo.mx">hola@horizonteaereo.mx</a>
+      <span>Cobertura: CDMX y área metropolitana</span>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Horizonte Aéreo. Ciudad de México.</span>
+    <span>Piloto certificado ante la AFAC.</span>
+  </div>
+</footer>
+
+</body>
+</html>
