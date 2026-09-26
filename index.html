@@ -323,7 +323,7 @@
     const setTexts = (selector, values) => document.querySelectorAll(selector).forEach((el,i)=>{ if(values[i]!=null) el.textContent=values[i]; });
     const wa = (text) => 'https://wa.me/' + d.contact.whatsapp.replace(/\\D/g,'') + '?text=' + encodeURIComponent(text);
 
-    setText('.brand', d.brand);
+    document.querySelectorAll('.brand').forEach(el=>{ const nodes=[...el.childNodes].filter(n=>n.nodeType===3); if(nodes.length) nodes[nodes.length-1].nodeValue='\n      '+d.brand+'\n    '; });
     setText('.hero h1', d.hero.title);
     setText('.hero p.lede', d.hero.description);
     setText('#servicios h2', d.services.title);
@@ -334,7 +334,6 @@
     setText('.band-dark .lede', d.features.description);
     setTexts('.band-dark .feature h3', d.features.items.map(x=>x.name));
     setTexts('.band-dark .feature p', d.features.items.map(x=>x.description));
-    setText('.gallery-grid', document.querySelector('.gallery-grid').textContent);
     const galleryCaptions = document.querySelectorAll('.gallery-grid .frame span');
     d.gallery.captions.forEach((v,i)=>{ if(galleryCaptions[i]) galleryCaptions[i].textContent=v; });
     setText('.section#paquetes h2', d.packages.title);
