@@ -1,0 +1,112 @@
+{
+  "brand": "Horizonte Aéreo",
+  "hero": {
+    "title": "El instante en que todos voltean hacia el cielo",
+    "description": "Filmamos bodas y eventos desde el aire, con tomas cinematográficas en 4K que cuentan la historia completa de tu celebración, no solo un ángulo.",
+    "whatsappText": "Hola, quiero cotizar un evento con Horizonte Aéreo."
+  },
+  "services": {
+    "title": "Cada evento tiene su propio ángulo",
+    "description": "Adaptamos el vuelo, el equipo y la edición al tipo de celebración, sin un solo formato genérico para todos.",
+    "items": [
+      {
+        "name": "Bodas",
+        "description": "La ceremonia, la recepción y el brindis, capturados desde arriba sin interrumpir un solo momento."
+      },
+      {
+        "name": "Eventos corporativos",
+        "description": "Conferencias, lanzamientos y activaciones, con tomas que muestran la escala real del evento."
+      },
+      {
+        "name": "XV años",
+        "description": "El vals, la coreografía y la fiesta, filmados con la misma calidez que un video de cine."
+      },
+      {
+        "name": "Conciertos y festivales",
+        "description": "Tomas panorámicas del escenario y del público, sincronizadas con el momento."
+      }
+    ]
+  },
+  "features": {
+    "title": "Por qué contratar el vuelo con nosotros",
+    "description": "Cuatro cosas que cuidamos en cada evento, sin excepción.",
+    "items": [
+      {
+        "name": "Pilotos certificados",
+        "description": "Volamos bajo las regulaciones de la AFAC, con licencia vigente y respeto por el espacio aéreo del lugar."
+      },
+      {
+        "name": "Video en 4K y 8K",
+        "description": "Equipo profesional listo para pantallas grandes y para redes sociales."
+      },
+      {
+        "name": "Entrega en 48 horas",
+        "description": "Recibes un primer corte editado dos días después de tu evento."
+      },
+      {
+        "name": "Seguro incluido",
+        "description": "Cada vuelo cuenta con cobertura de responsabilidad civil, incluida en todos los paquetes."
+      }
+    ]
+  },
+  "gallery": {
+    "title": "Así se ve la historia desde arriba",
+    "description": "Una muestra del tipo de tomas que integramos a cada entrega.",
+    "captions": [
+      "Ceremonia al atardecer",
+      "Vista aérea del recinto",
+      "Entrada de invitados",
+      "Pista y luces nocturnas",
+      "Escenario y público",
+      "Toma final de despedida"
+    ]
+  },
+  "packages": {
+    "title": "Paquetes",
+    "description": "Precios de referencia en pesos mexicanos. Ajustamos el paquete según la duración y el lugar de tu evento.",
+    "items": [
+      {
+        "name": "Esencial",
+        "price": "$4,500",
+        "description": "Para eventos íntimos que buscan un buen resumen aéreo.",
+        "features": [
+          "Hasta 2 horas de vuelo",
+          "Video editado de 2-3 min",
+          "Entrega en 48 horas",
+          "10 fotos aéreas en alta resolución"
+        ],
+        "whatsappText": "Hola, quiero cotizar el paquete Esencial."
+      },
+      {
+        "name": "Cinemático",
+        "price": "$7,800",
+        "description": "El equilibrio entre cobertura completa y edición cuidada.",
+        "features": [
+          "Hasta 4 horas de vuelo",
+          "Video de 4-5 min + versión corta para redes",
+          "25 fotos aéreas en alta resolución",
+          "Segundo piloto de respaldo"
+        ],
+        "whatsappText": "Hola, quiero cotizar el paquete Cinemático."
+      },
+      {
+        "name": "Producción completa",
+        "price": "$13,500",
+        "description": "Para bodas y eventos que quieren una pieza cinematográfica completa.",
+        "features": [
+          "Cobertura del día completo",
+          "Video de 8-10 min + highlights para redes",
+          "Galería completa de fotos aéreas",
+          "Dron adicional para tomas simultáneas"
+        ],
+        "whatsappText": "Hola, quiero cotizar el paquete Producción completa."
+      }
+    ]
+  },
+  "contact": {
+    "whatsapp": "+525512345678",
+    "email": "hola@horizonteaereo.mx",
+    "coverage": "CDMX y área metropolitana",
+    "footer": "¿Listo para ver tu evento desde otro ángulo? Escríbenos y armamos el paquete a tu medida."
+  }
+}
