@@ -313,5 +313,50 @@
   </div>
 </footer>
 
+<script>
+(async function(){
+  try {
+    const r = await fetch('/content/site.json', {cache:'no-store'});
+    if (!r.ok) return;
+    const d = await r.json();
+    const setText = (selector, value) => { const el = document.querySelector(selector); if (el && value != null) el.textContent = value; };
+    const setTexts = (selector, values) => document.querySelectorAll(selector).forEach((el,i)=>{ if(values[i]!=null) el.textContent=values[i]; });
+    const wa = (text) => 'https://wa.me/' + d.contact.whatsapp.replace(/\\D/g,'') + '?text=' + encodeURIComponent(text);
+
+    setText('.brand', d.brand);
+    setText('.hero h1', d.hero.title);
+    setText('.hero p.lede', d.hero.description);
+    setText('#servicios h2', d.services.title);
+    setText('#servicios .lede', d.services.description);
+    setTexts('#servicios .service h3', d.services.items.map(x=>x.name));
+    setTexts('#servicios .service p', d.services.items.map(x=>x.description));
+    setText('.band-dark h2', d.features.title);
+    setText('.band-dark .lede', d.features.description);
+    setTexts('.band-dark .feature h3', d.features.items.map(x=>x.name));
+    setTexts('.band-dark .feature p', d.features.items.map(x=>x.description));
+    setText('.gallery-grid', document.querySelector('.gallery-grid').textContent);
+    const galleryCaptions = document.querySelectorAll('.gallery-grid .frame span');
+    d.gallery.captions.forEach((v,i)=>{ if(galleryCaptions[i]) galleryCaptions[i].textContent=v; });
+    setText('.section#paquetes h2', d.packages.title);
+    setText('.section#paquetes .lede', d.packages.description);
+    const cards = document.querySelectorAll('.package');
+    d.packages.items.forEach((p,i)=>{
+      const card=cards[i]; if(!card) return;
+      card.querySelector('h3').textContent=p.name;
+      card.querySelector('.price').firstChild.textContent=p.price + ' ';
+      card.querySelector('.package > p:not(.price)').textContent=p.description;
+      const lis=card.querySelectorAll('li');
+      p.features.forEach((v,j)=>{ if(lis[j] && lis[j].lastChild) lis[j].lastChild.nodeValue=v; });
+      const btn=card.querySelector('.btn'); if(btn) btn.href=wa(p.whatsappText);
+    });
+    setText('.footer-brand > p', d.contact.footer);
+    const contactLinks=document.querySelectorAll('.footer-contact a');
+    if(contactLinks[0]){ contactLinks[0].href=wa('Hola, quiero cotizar un evento con Horizonte Aéreo.'); contactLinks[0].textContent='WhatsApp: +' + d.contact.whatsapp.replace(/^52/,'52 '); }
+    if(contactLinks[1]){ contactLinks[1].href='mailto:'+d.contact.email; contactLinks[1].textContent=d.contact.email; }
+    const coverage=document.querySelector('.footer-contact span'); if(coverage) coverage.textContent='Cobertura: '+d.contact.coverage;
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>{ if(!a.closest('.package')) a.href=wa(d.hero.whatsappText); });
+  } catch(e) { console.error('CMS content error', e); }
+})();
+</script>
 </body>
 </html>
