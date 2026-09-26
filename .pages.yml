@@ -1,0 +1,140 @@
+media: media
+content:
+  - name: site
+    label: Contenido de la página
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: brand
+        label: Nombre de marca
+        type: string
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - name: title
+            label: Título principal
+            type: string
+          - name: description
+            label: Descripción
+            type: text
+          - name: whatsappText
+            label: Mensaje de WhatsApp
+            type: text
+      - name: services
+        label: Servicios
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: description
+            label: Descripción
+            type: text
+          - name: items
+            label: Servicios
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name}"
+            fields:
+              - name: name
+                label: Nombre
+                type: string
+              - name: description
+                label: Descripción
+                type: text
+      - name: features
+        label: Beneficios
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: description
+            label: Descripción
+            type: text
+          - name: items
+            label: Beneficios
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name}"
+            fields:
+              - name: name
+                label: Nombre
+                type: string
+              - name: description
+                label: Descripción
+                type: text
+      - name: gallery
+        label: Galería
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: description
+            label: Descripción
+            type: text
+          - name: captions
+            label: Textos de las imágenes
+            type: string
+            list: true
+      - name: packages
+        label: Paquetes
+        type: object
+        fields:
+          - name: title
+            label: Título
+            type: string
+          - name: description
+            label: Descripción
+            type: text
+          - name: items
+            label: Paquetes
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{name} — {price}"
+            fields:
+              - name: name
+                label: Nombre
+                type: string
+              - name: price
+                label: Precio
+                type: string
+              - name: description
+                label: Descripción
+                type: text
+              - name: features
+                label: Características
+                type: string
+                list: true
+              - name: whatsappText
+                label: Mensaje de WhatsApp
+                type: text
+      - name: contact
+        label: Contacto
+        type: object
+        fields:
+          - name: whatsapp
+            label: WhatsApp
+            type: string
+          - name: email
+            label: Email
+            type: string
+          - name: coverage
+            label: Cobertura
+            type: string
+          - name: footer
+            label: Texto del pie de página
+            type: text
+settings:
+  hide: true
+  content:
+    merge: true
